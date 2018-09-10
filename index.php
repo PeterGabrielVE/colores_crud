@@ -20,6 +20,10 @@
         $sentencia_agregar = $pdo->prepare($sql_agregar);
         $sentencia_agregar -> execute(array($color,$descripcion));
 
+        //cerramos conexion a base de datos y sentencia
+        $sentencia_agregar = null;
+        $pdo = null;
+
         header('location:index.php');
     }
 
@@ -44,7 +48,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <title>Hello, world!</title>
+    <title> Colores CRUD</title>
   </head>
   <body>
     <div class="container mt-5">
@@ -100,3 +104,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>
+
+<?php
+    
+    //cerramos la conexion a la bd y sentencia
+    $pdo = null;
+    $gsent = null;
+
+?>
