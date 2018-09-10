@@ -12,7 +12,7 @@
 	//var_dump($resultado);
 
     //agregar
-    if ($_POST){
+    if($_POST){
         $color = $_POST['color'];
         $descripcion = $_POST['descripcion'];
 
@@ -21,6 +21,15 @@
         $sentencia_agregar -> execute(array($color,$descripcion));
 
         header('location:index.php');
+    }
+
+    if($_GET){
+
+        $id = $_GET['id'];
+        $sql_unico = 'SELECT * FROM colores WHERE id=?';
+        $gsent_unico = $pdo->prepare($sql_unico);
+        $gsent_unico -> execute(array($id));
+        $resultado_unico = $gsent_unico->fetch();
     }
 
 ?>
@@ -34,7 +43,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <title>Hello, world!</title>
   </head>
   <body>
@@ -49,17 +58,32 @@
     				<?php echo $dato['color'] ?>
     				-
     				<?php echo $dato['descripcion'] ?>
+
+                    <a href="index.php?id=<?php echo $dato['id'] ?>" class="float-right"><i class="fas fa-pencil-alt"></i></a>
     			</div>
 				
 				<?php endforeach ?>
             </div>
+
             <div class="col-md-6">
-                <h2>Agregar Elementos</h2>
+                <?php if(!$_GET): ?>
+                <h2>AGREGAR ELEMENTOS</h2>
                 <form method="POST">
-                    <input type="text" class="form-control mt-3" name="color" placeholder="Color">
+                    <input type="text" class="form-control" name="color" placeholder="Color">
                     <input type="text" class="form-control mt-3" name="descripcion" placeholder="Descripcion" >
                     <button class="btn btn-success mt-3">Agregar</button>
                 </form>
+            <?php endif ?>
+
+             <?php if($_GET): ?>
+                <h2>EDITAR ELEMENTOS</h2>
+                <form method="GET" action="editar.php">
+                    <input type="text" class="form-control" name="color" value="<?php echo $resultado_unico['color'] ?>" >
+                    <input type="text" class="form-control mt-3" name="descripcion"  value="<?php  echo $resultado_unico['descripcion']?>">
+                    <input type="hidden" name="id" value="<?php echo $resultado_unico['id'] ?>">
+                    <button class="btn btn-success mt-3">Editar</button>
+                </form>
+            <?php endif ?>
             </div>
     	</div>
     </div>
