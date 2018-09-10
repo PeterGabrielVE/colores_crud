@@ -12,7 +12,7 @@
         	print_r($fila);
     		} */
     	
-		echo 'Conectado';
+		//echo 'Conectado';
 
 	}catch (PDOException $e) {
     print "¡Error!: " . $e->getMessage() . "<br/>";
