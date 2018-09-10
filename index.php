@@ -58,8 +58,13 @@
     				<?php echo $dato['color'] ?>
     				-
     				<?php echo $dato['descripcion'] ?>
+                    
+                     <a class="float-right ml-2" href="eliminar.php?id=<?php echo $dato['id'] ?>">
+                    <i class="far fa-trash-alt"></i></a>
 
                     <a href="index.php?id=<?php echo $dato['id'] ?>" class="float-right"><i class="fas fa-pencil-alt"></i></a>
+
+                   
     			</div>
 				
 				<?php endforeach ?>
